@@ -4,6 +4,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight; 
 
 console.log(ctx)
+console.log('this is version v6');
 
 // ctx.fillStyle = 'white';
 // ctx.strokeStyle = 'white'
