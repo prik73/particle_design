@@ -77,10 +77,10 @@ class Particle{
                 }
 
                 //for y
-                if( mouse.y < this.y && this.x < canvas.height - this.size * 10){
+                if( mouse.y < this.y && this.y < canvas.height - this.size * 10){
                     this.y   += 10;
                 }
-                if( mouse.y > this.x && this.y > this.size * 10){
+                if( mouse.y > this.y && this.y > this.size * 10){
                     this.y -= 10;
                 }
             }
@@ -115,11 +115,11 @@ class Particle{
     function connect(){
         for(let i = 0; i < particleArray.length; i++){
             for(let j = i; j < particleArray.length; j++){
-                let distance = ((particleArray[i].x - particleArray[j].x)* (particleArray[i].x - particleArray[j].x))
-            + ((particleArray[i].y - particleArray[j].y)    * (particleArray[i].y - particleArray[j].y ))};
-
+                let distances = ((particleArray[i].x - particleArray[j].x)* (particleArray[i].x - particleArray[j].x))
+            + ((particleArray[i].y - particleArray[j].y)    * (particleArray[i].y - particleArray[j].y ))
+        
             //connecting particles, if smaller number then longer lines and more distant particles will be connected
-            if(distance < (canvas.width/ 7) * (canvas.height/7)){
+            if( distances < (canvas.width/ 7) * (canvas.height/7)){
                 ctx.strokeStyle='rgba(140, 85, 31, 1)';
                 ctx.linewidth = 1;
                 ctx.beginPath();
@@ -129,6 +129,9 @@ class Particle{
 
                 ctx.stroke();
             }
+        }
+
+            
         }
     }
 
