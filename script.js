@@ -119,7 +119,7 @@ class Particle{
             + ((particleArray[i].y - particleArray[j].y)    * (particleArray[i].y - particleArray[j].y ))
         
             //connecting particles, if smaller number then longer lines and more distant particles will be connected
-            if( distances < (canvas.width/ 7) * (canvas.height/7)){
+            if( distances < (canvas.width/ 20) * (canvas.height/20)){
                 ctx.strokeStyle='rgba(140, 85, 31, 1)';
                 ctx.linewidth = 1;
                 ctx.beginPath();
