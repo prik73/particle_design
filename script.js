@@ -112,6 +112,26 @@ class Particle{
         }
     }
 
+    function connect(){
+        for(let i = 0; i < particleArray.length; i++){
+            for(let j = i; j < particleArray.length; j++){
+                let distance = ((particleArray[i].x - particleArray[j].x)* (particleArray[i].x - particleArray[j].x))
+            + ((particleArray[i].y - particleArray[j].y)    * (particleArray[i].y - particleArray[j].y ))};
+
+            //connecting particles, if smaller number then longer lines and more distant particles will be connected
+            if(distance < (canvas.width/ 7) * (canvas.height/7)){
+                ctx.strokeStyle='rgba(140, 85, 31, 1)';
+                ctx.linewidth = 1;
+                ctx.beginPath();
+
+                ctx.moveTo(particleArray[i].x, particleArray[i].y);
+                ctx.lineTo(particleArray[j].x, particleArray[j].y);
+
+                ctx.stroke();
+            }
+        }
+    }
+
     function animate(){
         requestAnimationFrame(animate);
         ctx.clearRect(0, 0, innerWidth, innerHeight);
@@ -119,8 +139,20 @@ class Particle{
         for(let i = 0; i < particleArray.length; i++){
             particleArray[i].update();
         }
+        connect();
     }
 
+    //there is this error/bug, which occurs on resizing , to solve this
+    window.addEventListener('resize', 
+        function(){
+            canvas.width = innerWidth;
+            canvas.height = innerHeight; 
+            mouse.radius = (canvas.height/80) * (canvas.height/80);
+            init();
+        }
+    )
+
+   
 
     init();
     animate();
