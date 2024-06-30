@@ -33,6 +33,7 @@ window.addEventListener('mousemove',
 )
 
 
+
 class Particle{
     constructor(x, y, directionX, directionY, size, color){
         this.x = x;
@@ -101,7 +102,7 @@ class Particle{
         particleArray = [];
         let totalParticles = (canvas.height * canvas.width) / 9000;
 
-        for(let i = 0 ; i < totalParticles; i++){
+        for(let i = 0 ; i < totalParticles * 1.3; i++){
             let size = (Math.random() * 5) + 1;
             let x = (Math.random() * ((innerWidth - size * 2) - (size * 2)) + size * 2);
             let y = (Math.random() * ((innerHeight - size * 2) - (size * 2)) + size * 2);
@@ -114,14 +115,18 @@ class Particle{
     }
 
     function connect(){
+        let opacityValue = 1;
         for(let i = 0; i < particleArray.length; i++){
             for(let j = i; j < particleArray.length; j++){
                 let distances = ((particleArray[i].x - particleArray[j].x)* (particleArray[i].x - particleArray[j].x))
             + ((particleArray[i].y - particleArray[j].y)    * (particleArray[i].y - particleArray[j].y ))
         
             //connecting particles, if smaller number then longer lines and more distant particles will be connected
-            if( distances < (canvas.width/ 20) * (canvas.height/20)){
-                ctx.strokeStyle='rgba(140, 85, 31, 1)';
+            if( distances < (canvas.width/ 8) * (canvas.height/8)){
+
+                opacityValue = 1 - (distances / 20000)
+
+                ctx.strokeStyle='rgba(140, 85, 31,' + opacityValue + ')';
                 ctx.linewidth = 1;
                 ctx.beginPath();
 
@@ -153,6 +158,14 @@ class Particle{
             canvas.height = innerHeight; 
             mouse.radius = (canvas.height/80) * (canvas.height/80);
             init();
+        }
+    )
+
+    //when mouse leaves the screen 
+    window.addEventListener('mouseout', 
+        function(){
+            mouse.x = undefined;
+            mouse.y = undefined;
         }
     )
 
